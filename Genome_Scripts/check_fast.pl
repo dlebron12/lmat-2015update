@@ -1,4 +1,6 @@
 #!/bin/perl
+
+#This script checks if the fastsummary for the genome was done and if not it resubmits the job.
 my $directory=$ARGV[0];
 my $catalog = $ARGV[1];
 open(my $sh,'<', $catalog)|| die "Couldnt open catalog";
