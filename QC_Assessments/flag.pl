@@ -115,8 +115,12 @@ while($_=<GEN>){ chomp;
            if ($gen1{$seqid}==$t[3]){ #evaluates LMAT taxid  with gen call id
                 $rc=$t[2]; #stores correctly id counts
                 $gtotrc+=$t[2];}
-           elsif($t[3]!=32630 and $t[3]!=$gen1{$seqid}){$gtotrc+=$t[2];} 
-	   elsif($t[3]==9605){$hrc+=$t[2];}
+           elsif($t[3]!=32630 and $t[3]!=$gen1{$seqid}){
+	   	$gtotrc+=$t[2];
+		} 
+	   elsif($t[3]==9605){
+	   	$hrc+=$t[2];
+	   	}
             
       }close(GEN);
 
