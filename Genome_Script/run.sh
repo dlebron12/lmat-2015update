@@ -1,5 +1,5 @@
 #! /bin/sh 
-
+#Run LMAT for each of the genome sequences
 
 for i in $(cat dir.ls );do
   cd "$i";
