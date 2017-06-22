@@ -1,4 +1,6 @@
 #!/bin/perl
+## This script creates individual folder per genome and adds the genome sequence as a $*.fa filename. 
+
 use strict;
 
 my $file = $ARGV[0];
