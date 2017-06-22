@@ -1,5 +1,6 @@
 #!/bin/perl -w
 #input are the name of the dir to be evaluated and spec.cat* file
+#output is the creation of the summary_* file which provides a summary of how well every genome was identified per tax level in percentages.
 my $directory=$ARGV[0];
 my $catalog = $ARGV[1];
 my $name;
