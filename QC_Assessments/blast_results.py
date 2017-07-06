@@ -94,7 +94,7 @@ for file in sys.stdin:
     # Get domain for each taxid
     index_dict = dict((value, idx) for idx,value in enumerate(taxid_to_k['taxid']))
     # Use get to avoid error 
-    indices_dom=[index_dict.get(x) for x in gene_taxid if index.dict.get(x) is not None]
+    indices_dom=[index_dict.get(x) for x in gene_taxid if index_dict.get(x) is not None]
     gene_domain=taxid_to_k['Domain'][indices_dom]
     gene_info=pd.DataFrame(np.column_stack([list(acc_to_tax['accession.version'][indices]),gene_taxid,gene_domain]), columns=['gene.acc','taxid','Domain'])
 
@@ -106,7 +106,7 @@ for file in sys.stdin:
     #Remove the Eukaryota Fragments from the original file
     euk_frag=list(set(df[df["accession"].isin(gene_info["gene.acc"].tolist())]["frag"].tolist()))
 
-    delete=delete+euk_frag #add the human fragments
+    rmv_total=delete+euk_frag #add the human fragments
     #how many fragments were labeled as that gene
     pairs=set(list(zip(df["frag"], df["accession"])))
     counts=dict()
@@ -136,22 +136,24 @@ for file in sys.stdin:
     
     if frag==0:
 	prop=0
+	prop_Euk=0
     else:
-	prop=str(round(len(delete)/float(frag),4))
+	prop=round(len(delete)/float(frag),4)
+	prop_euk=round(len(euk_frag)/float(frag),4)
    
     #Reporting: Seq_id,number of fragments and proportion of overall fragments  
-    human_report.append([seqid, len(delete),prop])	 
+    human_report.append([seqid, len(delete),prop,prop_euk])	 
 
     #Add line specifying how many human genes were found:
 
     for line in f:
         match=re.search('^>seq.(\d+)',line)
-        if match and int(match.group(1)) in delete:
+        if match and int(match.group(1)) in rmv_total:
             next(f)
         #next #skips sequence line
         else:
             p.write(line)
     f.close()
-df=DataFrame(human_report, columns=["seqid","fragments","proportion"])
+df=DataFrame(blast_report, columns=["seqid","fragments","prop-Human","prop-Euk"])
 df.to_csv(df,index=None,sep=" ", mode='a')
 
