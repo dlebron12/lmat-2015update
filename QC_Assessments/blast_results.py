@@ -61,6 +61,7 @@ for file in sys.stdin:
     catalog=pd.read_table(catalog_loc, header=None, names=["name","seqid","taxid"])
     catalog["seqid"]=catalog["seqid"].astype(str)
     seq_taxid=catalog.loc[int(np.where(catalog["seqid"]==seqid)[0]),"taxid"]
+    seq_name=catalog.loc[int(np.where(catalog["seqid"]==seqid)[0]),"name"]
     info=[]
     frag=0 #Number of fragments
     with open(file) as fp:
