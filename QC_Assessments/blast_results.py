@@ -142,7 +142,7 @@ for file in sys.stdin:
 	prop_euk=round(len(euk_frag)/float(frag),4)
    
     #Reporting: Seq_id,number of fragments removed and proportion of overall fragments in fasta file. 
-    human_report.append([seqid, len(rmv_total),prop,prop_euk])	 
+    human_report.append([seqid,frag,len(rmv_total),prop,prop_euk])	 
 
     #Add line specifying how many human genes were found:
 
@@ -154,6 +154,6 @@ for file in sys.stdin:
         else:
             p.write(line)
     f.close()
-df=DataFrame(blast_report, columns=["seqid","Eliminated-Fragments","prop-Human","prop-Euk"])
+df=DataFrame(blast_report, columns=["seqid","frag_in_fasta","eliminated-fragments","prop-Human","prop-Euk"])
 df.to_csv(df,index=None,sep=" ", mode='a')
 
