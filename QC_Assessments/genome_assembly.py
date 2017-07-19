@@ -1,3 +1,5 @@
+#! /usr/bin/tce/ipython
+
 # Outputs full fasta
 def Readfile(fileName):
     with open(fileName) as f:
@@ -36,7 +38,7 @@ if __name__== "__main__":
         #change folder
         folder_dir=folder+".dir"
         os.chdir(folder_dir)
-        g=open(folder+"+.giant_fasta.txt","a")
+        g=open(folder+".giant_fasta.txt","a")
         for header in hf:
         #get seqid using re
             match=re.search('\[sequence_id (\d+)\]',header)
