@@ -95,7 +95,7 @@ for file in sys.stdin:
     # Get domain for each taxid
     index_dict = dict((value, idx) for idx,value in enumerate(taxid_to_k['taxid']))
     # Use get to avoid error 
-    indices_dom=[index_dict.get(x) for x in gene_taxid if index_dict.get(x) is not None]
+    indices_dom=[index_dict.get(x) for x in gene_taxid]
     gene_domain=taxid_to_k['Domain'][indices_dom]
     gene_info=pd.DataFrame(np.column_stack([list(acc_to_tax['accession.version'][indices]),gene_taxid,gene_domain]), columns=['gene.acc','taxid','Domain'])
 
