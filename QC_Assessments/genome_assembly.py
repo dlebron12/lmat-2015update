@@ -43,14 +43,14 @@ if __name__== "__main__":
             seqid=match.group(1)
             os.chdir(seqid)
             if seqid+"_v2.fa.frag" in os.listdir("."):
-                reads = readDataFromFile(seqid+"_v2.fa.frag")
+                reads = Readfile(seqid+"_v2.fa.frag")
                 genome=reads[0]
                 #Ensemble genome from frag fasta file.
                 for i in range(1,len(reads)):
                     genome=Assemble_genome(genome,reads[i])
             else:
                 #Nothing was taken from fasta file so just take original fasta
-                genome=readDataFromFile(seqid+".fa")
+                genome=Readfile(seqid+".fa")[0]
         #open a new txt file giant_fasta and append header and genome information in
         #g=open(os.path.join(wd,folder_dir,folder+"+.giant_fasta.txt"))
             g.write(header)
