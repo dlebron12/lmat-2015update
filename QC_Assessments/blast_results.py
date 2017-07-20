@@ -127,13 +127,13 @@ for file in sys.stdin:
     #Report file - ?Report removed sequences?
     gene_info.to_csv(seqid+"_blast.report.txt", index=None, sep=' ', mode='a')
     
-    
-     
-    #Create fasta_v2
     #Re-write the frag file without the eukaryota and human fragments
     # Write human_report on all seqid 
     f=open(fasta_loc+"/"+seqid+"/"+seqid+'.fa.frag',"r")
-    p=open(fasta_loc+"/"+ seqid+"/"+seqid+'_v2.fa.frag',"w")
+    
+    #Create fasta_v2 if there are fragments to remove from original fasta
+    if len(rmv_total) >0:
+	p=open(fasta_loc+"/"+ seqid+"/"+seqid+'_v2.fa.frag',"w")
     
     if frag==0:
 	prop=0
@@ -155,6 +155,7 @@ for file in sys.stdin:
         else:
             p.write(line)
     f.close()
+    p.close()
 df=DataFrame(blast_report, columns=["seqid","frag_in_fasta","eliminated-fragments","prop-Human","prop-Euk"])
 df.to_csv(df,index=None,sep=" ", mode='a')
 
