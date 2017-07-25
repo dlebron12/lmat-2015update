@@ -1,4 +1,4 @@
-#! /usr/bin/tce/ipython
+#! /usr/tce/bin/ipython 
 
 # Outputs full fasta
 def Readfile(fileName):
@@ -38,7 +38,7 @@ if __name__== "__main__":
         #change folder
         folder_dir=folder+".dir"
         os.chdir(folder_dir)
-        g=open(folder+".giant_fasta.txt","a")
+        g=open(folder+".big_fasta.txt","a")
         for header in hf:
         #get seqid using re
             match=re.search('\[sequence_id (\d+)\]',header)
@@ -54,9 +54,9 @@ if __name__== "__main__":
                 #Nothing was taken from fasta file so just take original fasta
                 genome=Readfile(seqid+".fa")[0]
         #open a new txt file giant_fasta and append header and genome information in
-        #g=open(os.path.join(wd,folder_dir,folder+"+.giant_fasta.txt"))
-            g.write(header)
-            g.write(str(genome))
+
+            g.write(header+"\n")
+            g.write(genome+"\n")
             os.chdir('..')
     hf.close()
     g.close()
