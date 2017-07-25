@@ -32,12 +32,10 @@ if __name__== "__main__":
     header_file=sys.argv[1] # input the header_file
     header_file=header_file.rstrip("\n")
     wd='/usr/mic/post1/metagenomics/ref_sets/fasta/01012015update/sinceMar2014'#depending the header file we do the wd
-    match=re.search('^(.*?).headers$',header_file)
-    folder=match.group(1) #name of the directory to look out for the sequences
+    folder_dir=header_file.replace("headers","dir")
     with open(header_file) as hf:
         #change folder
-        folder_dir=folder+".dir"
-        os.chdir(folder_dir)
+        os.chdir(folder_dir):
         g=open(folder+".big_fasta.txt","a")
         for header in hf:
         #get seqid using re
