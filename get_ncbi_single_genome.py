@@ -16,8 +16,6 @@ import pandas as pd
 import gzip
 
 ###Variables for job submission####
-sleepTime=5
-batchSize=100
 
 def getFile(ftp,fasta):
     #downloadDir= os.getcwd()
@@ -31,6 +29,25 @@ def getFile(ftp,fasta):
     #print 'Getting '+ fasta_file[0]
         ftp.retrbinary('RETR '+ fasta, fhandle.write)
         fhandle.close()
+    else:
+        pass
+
+def SortFiles.Date(dir_ls):
+    for i in dir_ls:
+
+        #Check is a DIRECTORY
+        #Check what the creation date is
+        #Rearrange list by creation Date (pair-wise comparison)
+
+        #Compare two dates
+        date1 = "31/12/2015"
+        date2 = "01/01/2016"
+        newdate1 = time.strptime(date1, "%d/%m/%Y")
+        newdate2 = time.strptime(date2, "%d/%m/%Y")
+        newdate1 < newdate2 #True
+
+
+    return sorted_ls[0] #newest
 
 #############################CODE#############################
 # Input is accession to download
@@ -61,30 +78,19 @@ f1,f2,f3=projectID[:3],projectID[3:6],projectID[6:9]
 ### Search fasta files in directory and check creation dates
 fastaDir=os.path.join(Dir,f1,f2,f3)
 ftp.cwd(fastaDir)
-    #Get list of all content and check which folder that starts with projectID is the last modified
 versions=ftp.nlst(".")
 
+#Choose the newest modified version
 if len(versions)==1:
     f4=versions[0]
-    ftp.cwd(f4)
-    files=ftp.nlst(".")
-    fasta_file=[i for i in files if re.search('v1_genomic.fna.gz',i)][0]
-    getFile(ftp,fasta_file)
-
 #there are more versions
 else:
-    print accession + " has multiple directories"
-    #get all modified times of fastas and download the newest one
-    
+    print accession + " has multiple directories\n"
     f4=SortFiles.Date(versions) #gets recent verison
-    ftp.cwd(f4)
-    files=ftp.nlst(".")
-    fasta_file=[i for i in files if re.search('v1_genomic.fna.gz',i)][0]
-    getFile(ftp,fasta_file)
-    #The fasta for download ends in
 
+ftp.cwd(f4)
+files=ftp.nlst(".")
+fasta_file=[i for i in files if re.search('v1_genomic.fna.gz',i)][0]
+getFile(ftp,fasta_file)
 
 ftp.quit()
-
-def SortFiles.Date(file_ls):
-    for i in file_ls:
