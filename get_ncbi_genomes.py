@@ -26,7 +26,7 @@ file_ls=pd.read_table(file,header=False)[1] #second column is the accession numb
 #Open ftp
 link='ftp://ftp.ncbi.nlm.ncbi.nih.gov'
 user='anonymous'
-email='lebronaldea1@llnl.gov'
+email=config.email
 ftp=ftplib.FTP(link)
 ftp.login(user,email))
 #for each accession, divide the accession and create wd
